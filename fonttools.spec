@@ -3,7 +3,7 @@
 
 Name:           fonttools
 Version:        2.0
-Release:        0.3.%{alphatag}%{?dist}
+Release:        0.4.%{alphatag}%{?dist}
 Summary:        A tool to convert True/OpenType fonts to XML and back
 
 Group:          Development/Tools
@@ -17,6 +17,7 @@ BuildRequires:  python-devel python-numeric
 Requires:   python-abi = %(%{__python} -c "import sys ; print sys.version[:3]")
 Requires:       python-numeric
 
+Provides:       ttx
 
 %description
 TTX/FontTools is a tool for manipulating TrueType and OpenType fonts. It is
@@ -75,6 +76,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Feb 02 2006 Roozbeh Pournader <roozbeh@farsiweb.info> - 2.0-0.4.20050624cvs
+- Provide ttx
+
 * Wed Feb 01 2006 Roozbeh Pournader <roozbeh@farsiweb.info> - 2.0-0.3.20050624cvs
 - Use upstream snapshots, moving the difference into a patch
 - Change alphatag time to the latest change in CVS
