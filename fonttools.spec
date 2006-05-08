@@ -3,7 +3,7 @@
 
 Name:           fonttools
 Version:        2.0
-Release:        0.5.%{alphatag}%{?dist}
+Release:        0.6.%{alphatag}%{?dist}
 Summary:        A tool to convert True/OpenType fonts to XML and back
 
 Group:          Development/Tools
@@ -11,6 +11,7 @@ License:        BSD
 URL:            http://sourceforge.net/projects/fonttools/
 Source0:        http://fonttools.sourceforge.net/cvs-snapshots/bzip2/fonttools-2005-03-15.210812.tar.bz2
 Patch1:         fonttools-20050315-20050624.patch
+Patch2:         fonttools-unsigned-ranges.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  python-devel python-numeric
@@ -28,6 +29,7 @@ TrueType and OpenType fonts to an XML-based text format and vice versa.
 %prep
 %setup -q -n %{name}
 %patch1 -p1 -b .20050624
+%patch2 -p1 -b .unsigned-ranges
 
 %{__sed} -i.nobang '1 d' Lib/fontTools/ttx.py
 %{__chmod} a-x LICENSE.txt
@@ -76,6 +78,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon May 08 2006 Roozbeh Pournader <roozbeh@farsiweb.info> - 2.0-0.6.20050624cvs
+- Change specification of ulUnicodeRange1-4 to unsigned long
+
 * Mon Feb 13 2006 Roozbeh Pournader <roozbeh@farsiweb.info> - 2.0-0.5.20050624cvs
 - Rebuild for Fedora Extras 5
 
