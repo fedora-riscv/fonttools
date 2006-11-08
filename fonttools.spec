@@ -3,7 +3,7 @@
 
 Name:           fonttools
 Version:        2.0
-Release:        0.7.%{alphatag}%{?dist}
+Release:        0.8.%{alphatag}%{?dist}
 Summary:        A tool to convert True/OpenType fonts to XML and back
 
 Group:          Development/Tools
@@ -63,21 +63,24 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{python_sitearch}/FontTools/fontTools/ttLib/tables
 %{python_sitearch}/FontTools/*.py
 %{python_sitearch}/FontTools/*.pyc
-%ghost %{python_sitearch}/FontTools/*.pyo
+%{python_sitearch}/FontTools/*.pyo
 %{python_sitearch}/FontTools/fontTools/*.py
 %{python_sitearch}/FontTools/fontTools/*.pyc
-%ghost %{python_sitearch}/FontTools/fontTools/*.pyo
+%{python_sitearch}/FontTools/fontTools/*.pyo
 %{python_sitearch}/FontTools/fontTools/*/*.py
 %{python_sitearch}/FontTools/fontTools/*/*.pyc
-%ghost %{python_sitearch}/FontTools/fontTools/*/*.pyo
+%{python_sitearch}/FontTools/fontTools/*/*.pyo
 %{python_sitearch}/FontTools/fontTools/*/*/*.py
 %{python_sitearch}/FontTools/fontTools/*/*/*.pyc
-%ghost %{python_sitearch}/FontTools/fontTools/*/*/*.pyo
+%{python_sitearch}/FontTools/fontTools/*/*/*.pyo
 %{python_sitearch}/FontTools/fontTools/misc/eexecOp.so
 %{_bindir}/ttx
 
 
 %changelog
+* Wed Nov 08 2006 Roozbeh Pournader <roozbeh@farsiweb.info> - 2.0-0.8.20050624cvs
+- De-ghost .pyo files
+
 * Wed Nov 08 2006 Roozbeh Pournader <roozbeh@farsiweb.info> - 2.0-0.7.20050624cvs
 - Rebuild to get into Rawhide
 
