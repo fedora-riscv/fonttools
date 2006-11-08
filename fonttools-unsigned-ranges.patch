@@ -1,0 +1,17 @@
+--- fonttools/Lib/fontTools/ttLib/tables/O_S_2f_2.py.unsigned-ranges	2006-05-08 17:13:17.000000000 +0330
++++ fonttools/Lib/fontTools/ttLib/tables/O_S_2f_2.py	2006-05-08 17:14:04.000000000 +0330
+@@ -52,10 +52,10 @@
+ 	yStrikeoutPosition:     h       # strikeout position
+ 	sFamilyClass:           h       # font family class and subclass
+ 	panose:                 10s     # panose classification number
+-	ulUnicodeRange1:        l       # character range
+-	ulUnicodeRange2:        l       # character range
+-	ulUnicodeRange3:        l       # character range
+-	ulUnicodeRange4:        l       # character range
++	ulUnicodeRange1:        L       # character range
++	ulUnicodeRange2:        L       # character range
++	ulUnicodeRange3:        L       # character range
++	ulUnicodeRange4:        L       # character range
+ 	achVendID:              4s      # font vendor identification
+ 	fsSelection:            H       # font selection flags
+ 	fsFirstCharIndex:       H       # first unicode character index
