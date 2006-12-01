@@ -3,7 +3,7 @@
 
 Name:           fonttools
 Version:        2.0
-Release:        0.9.%{alphatag}%{?dist}
+Release:        0.10.%{alphatag}%{?dist}
 Summary:        A tool to convert True/OpenType fonts to XML and back
 
 Group:          Development/Tools
@@ -11,6 +11,7 @@ License:        BSD
 URL:            http://sourceforge.net/projects/fonttools/
 Source0:        http://fonttools.sourceforge.net/cvs-snapshots/bzip2/fonttools-2006-02-23.085153.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Patch1:         fonttools-uni5.patch
 
 BuildRequires:  python-devel python-numeric
 Requires:       python-numeric
@@ -25,6 +26,7 @@ TrueType and OpenType fonts to an XML-based text format and vice versa.
 
 %prep
 %setup -q -n %{name}
+%patch1 -p1 -b .uni5
 
 %{__sed} -i.nobang '1 d' Lib/fontTools/ttx.py
 %{__chmod} a-x LICENSE.txt
@@ -65,6 +67,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Dec 01 2006 Roozbeh Pournader <roozbeh@farsiweb.info> - 2.0-0.10.20060223cvs
+- Update the Unicode names file to Unicode 5.0.0
+
 * Thu Nov 09 2006 Roozbeh Pournader <roozbeh@farsiweb.info> - 2.0-0.9.20060223cvs
 - Update to newer CVS snapshot dated 2006-02-23
 - Cleanup based on latest Python packaging guidelines
