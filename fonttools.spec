@@ -1,21 +1,19 @@
 %{!?python_sitearch: %define python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib(1)")}
-%define alphatag 20050624cvs
+%define alphatag 20060223cvs
 
 Name:           fonttools
 Version:        2.0
-Release:        0.8.%{alphatag}%{?dist}
+Release:        0.10.%{alphatag}%{?dist}
 Summary:        A tool to convert True/OpenType fonts to XML and back
 
 Group:          Development/Tools
 License:        BSD
 URL:            http://sourceforge.net/projects/fonttools/
-Source0:        http://fonttools.sourceforge.net/cvs-snapshots/bzip2/fonttools-2005-03-15.210812.tar.bz2
-Patch1:         fonttools-20050315-20050624.patch
-Patch2:         fonttools-unsigned-ranges.patch
+Source0:        http://fonttools.sourceforge.net/cvs-snapshots/bzip2/fonttools-2006-02-23.085153.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Patch1:         fonttools-uni5.patch
 
 BuildRequires:  python-devel python-numeric
-Requires:   python-abi = %(%{__python} -c "import sys ; print sys.version[:3]")
 Requires:       python-numeric
 
 Provides:       ttx
@@ -28,8 +26,7 @@ TrueType and OpenType fonts to an XML-based text format and vice versa.
 
 %prep
 %setup -q -n %{name}
-%patch1 -p1 -b .20050624
-%patch2 -p1 -b .unsigned-ranges
+%patch1 -p1 -b .uni5
 
 %{__sed} -i.nobang '1 d' Lib/fontTools/ttx.py
 %{__chmod} a-x LICENSE.txt
@@ -61,23 +58,22 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{python_sitearch}/FontTools/fontTools/pens
 %dir %{python_sitearch}/FontTools/fontTools/ttLib
 %dir %{python_sitearch}/FontTools/fontTools/ttLib/tables
-%{python_sitearch}/FontTools/*.py
-%{python_sitearch}/FontTools/*.pyc
-%{python_sitearch}/FontTools/*.pyo
-%{python_sitearch}/FontTools/fontTools/*.py
-%{python_sitearch}/FontTools/fontTools/*.pyc
-%{python_sitearch}/FontTools/fontTools/*.pyo
-%{python_sitearch}/FontTools/fontTools/*/*.py
-%{python_sitearch}/FontTools/fontTools/*/*.pyc
-%{python_sitearch}/FontTools/fontTools/*/*.pyo
-%{python_sitearch}/FontTools/fontTools/*/*/*.py
-%{python_sitearch}/FontTools/fontTools/*/*/*.pyc
-%{python_sitearch}/FontTools/fontTools/*/*/*.pyo
+%{python_sitearch}/FontTools/*.py*
+%{python_sitearch}/FontTools/fontTools/*.py*
+%{python_sitearch}/FontTools/fontTools/*/*.py*
+%{python_sitearch}/FontTools/fontTools/*/*/*.py*
 %{python_sitearch}/FontTools/fontTools/misc/eexecOp.so
 %{_bindir}/ttx
 
 
 %changelog
+* Fri Dec 01 2006 Roozbeh Pournader <roozbeh@farsiweb.info> - 2.0-0.10.20060223cvs
+- Update the Unicode names file to Unicode 5.0.0
+
+* Thu Nov 09 2006 Roozbeh Pournader <roozbeh@farsiweb.info> - 2.0-0.9.20060223cvs
+- Update to newer CVS snapshot dated 2006-02-23
+- Cleanup based on latest Python packaging guidelines
+
 * Wed Nov 08 2006 Roozbeh Pournader <roozbeh@farsiweb.info> - 2.0-0.8.20050624cvs
 - De-ghost .pyo files
 
