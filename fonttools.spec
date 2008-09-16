@@ -1,22 +1,21 @@
+%{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 %{!?python_sitearch: %define python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib(1)")}
-%define alphatag 20060223cvs
 
 Name:           fonttools
-Version:        2.0
-Release:        0.12.%{alphatag}%{?dist}
+Version:        2.2
+Release:        1%{?dist}
 Summary:        A tool to convert True/OpenType fonts to XML and back
 
 Group:          Development/Tools
 License:        BSD
-URL:            http://sourceforge.net/projects/fonttools/
-Source0:        http://fonttools.sourceforge.net/cvs-snapshots/bzip2/fonttools-2006-02-23.085153.tar.bz2
+URL:            http://sourceforge.net/projects/%{name}/
+Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-Patch1:         fonttools-uni5.patch
 
 BuildRequires:  python-devel python-numeric
 Requires:       python-numeric
 
-Provides:       ttx
+Provides:       ttx = %{version}-%{release}
 
 %description
 TTX/FontTools is a tool for manipulating TrueType and OpenType fonts. It is
@@ -25,8 +24,7 @@ TrueType and OpenType fonts to an XML-based text format and vice versa.
 
 
 %prep
-%setup -q -n %{name}
-%patch1 -p1 -b .uni5
+%setup -q
 
 %{__sed} -i.nobang '1 d' Lib/fontTools/ttx.py
 %{__chmod} a-x LICENSE.txt
@@ -40,7 +38,9 @@ CFLAGS="$RPM_OPT_FLAGS" %{__python} setup.py build
 rm -rf $RPM_BUILD_ROOT
 %{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT%{python_sitearch}/FontTools/fontTools/ttLib/test
-
+chmod 0755 $RPM_BUILD_ROOT%{python_sitearch}/FontTools/fontTools/misc/eexecOp.so
+mkdir -p -m 0755 ${RPM_BUILD_ROOT}%{_mandir}/man1
+mv $RPM_BUILD_ROOT/usr/man/man1/ttx.1 $RPM_BUILD_ROOT/%{_mandir}/man1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -49,7 +49,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %doc LICENSE.txt
-%doc Doc/bugs.txt Doc/ChangeLog.txt Doc/changes.txt Doc/documentation.html
+%doc Doc/ChangeLog.txt Doc/changes.txt Doc/documentation.html
 %{python_sitearch}/FontTools.pth
 %dir %{python_sitearch}/FontTools
 %dir %{python_sitearch}/FontTools/fontTools
@@ -63,10 +63,16 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitearch}/FontTools/fontTools/*/*.py*
 %{python_sitearch}/FontTools/fontTools/*/*/*.py*
 %{python_sitearch}/FontTools/fontTools/misc/eexecOp.so
+%{python_sitearch}/FontTools/fonttools-%{version}-py2.5.egg-info
 %{_bindir}/ttx
+%{_mandir}/man1/ttx.1.gz
+
 
 
 %changelog
+* Tue Sep 16 2008 Matt Domsch <mdomsch@fedoraproject.org> - 2.2-1
+- update to 2.2, drop upstreamed patch, fix FTBFS BZ#434409
+
 * Tue Feb 19 2008 Fedora Release Engineering <rel-eng@fedoraproject.org> - 2.0-0.12.20060223cvs
 - Autorebuild for GCC 4.3
 
