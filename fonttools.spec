@@ -3,7 +3,7 @@
 
 Name:           fonttools
 Version:        2.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A tool to convert True/OpenType fonts to XML and back
 
 Group:          Development/Tools
@@ -63,13 +63,16 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitearch}/FontTools/fontTools/*/*.py*
 %{python_sitearch}/FontTools/fontTools/*/*/*.py*
 %{python_sitearch}/FontTools/fontTools/misc/eexecOp.so
-%{python_sitearch}/FontTools/fonttools-%{version}-py2.5.egg-info
+%{python_sitearch}/FontTools/fonttools-%{version}-py?.?.egg-info
 %{_bindir}/ttx
 %{_mandir}/man1/ttx.1.gz
 
 
 
 %changelog
+* Sat Nov 29 2008 Ignacio Vazquez-Abrams <ivazqueznet+rpm@gmail.com> - 2.2-3
+- Fix locations for Python 2.6
+
 * Sat Nov 29 2008 Ignacio Vazquez-Abrams <ivazqueznet+rpm@gmail.com> - 2.2-2
 - Rebuild for Python 2.6
 
