@@ -3,7 +3,7 @@
 
 Name:           fonttools
 Version:        2.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A tool to convert True/OpenType fonts to XML and back
 
 Group:          Development/Tools
@@ -12,8 +12,8 @@ URL:            http://sourceforge.net/projects/%{name}/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires:  python-devel python-numeric
-Requires:       python-numeric
+BuildRequires:  python-devel numpy
+Requires:       numpy
 
 Provides:       ttx = %{version}-%{release}
 
@@ -70,6 +70,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Feb 25 2009 Roozbeh Pournader <roozbeh@gmail.com> - 2.2-5
+* Change dependency on python-numeric to numpy
+
 * Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
