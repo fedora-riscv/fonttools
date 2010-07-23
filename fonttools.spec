@@ -1,9 +1,11 @@
-%{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
-%{!?python_sitearch: %define python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib(1)")}
+%if ! (0%{?fedora} > 12 || 0%{?rhel} > 5)
+%{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
+%{!?python_sitearch: %global python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")}
+%endif
 
 Name:           fonttools
-Version:        2.2
-Release:        8%{?dist}
+Version:        2.3
+Release:        1%{?dist}
 Summary:        A tool to convert True/OpenType fonts to XML and back
 
 Group:          Development/Tools
@@ -15,8 +17,6 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  python-devel numpy
 Requires:       numpy
 
-Patch0:         fonttools-as.patch
-
 Provides:       ttx = %{version}-%{release}
 
 %description
@@ -27,10 +27,9 @@ TrueType and OpenType fonts to an XML-based text format and vice versa.
 
 %prep
 %setup -q
-%patch0 -p0 -b .as
 
-%{__sed} -i.nobang '1 d' Lib/fontTools/ttx.py
-%{__chmod} a-x LICENSE.txt
+sed -i.nobang '1 d' Lib/fontTools/ttx.py
+chmod a-x LICENSE.txt
 
 
 %build
@@ -42,8 +41,6 @@ rm -rf $RPM_BUILD_ROOT
 %{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT%{python_sitearch}/FontTools/fontTools/ttLib/test
 chmod 0755 $RPM_BUILD_ROOT%{python_sitearch}/FontTools/fontTools/misc/eexecOp.so
-mkdir -p -m 0755 ${RPM_BUILD_ROOT}%{_mandir}/man1
-mv $RPM_BUILD_ROOT/usr/man/man1/ttx.1 $RPM_BUILD_ROOT/%{_mandir}/man1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -52,7 +49,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %doc LICENSE.txt
-%doc Doc/ChangeLog.txt Doc/changes.txt Doc/documentation.html
+%doc Doc/ChangeLog Doc/changes.txt Doc/documentation.html
 %{python_sitearch}/FontTools.pth
 %dir %{python_sitearch}/FontTools
 %dir %{python_sitearch}/FontTools/fontTools
@@ -73,6 +70,12 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jul 23 2010 Akira TAGOH <tagoh@redhat.com> - 2.3-1
+- New upstream release. (Paul Williams, #599281)
+  - drop upstreamed patch.
+  - correct man page location.
+- Update the spec file to keep consistensy of usage in the macro as far as possible.
+
 * Wed Jul 21 2010 David Malcolm <dmalcolm@redhat.com> - 2.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Features/Python_2.7/MassRebuild
 
