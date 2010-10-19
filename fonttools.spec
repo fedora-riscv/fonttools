@@ -5,7 +5,7 @@
 
 Name:           fonttools
 Version:        2.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool to convert True/OpenType fonts to XML and back
 
 Group:          Development/Tools
@@ -70,6 +70,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Oct 19 2010 Akira TAGOH <tagoh@redhat.com> - 2.3-2
+- Rebuild.
+
 * Fri Jul 23 2010 Akira TAGOH <tagoh@redhat.com> - 2.3-1
 - New upstream release. (Paul Williams, #599281)
   - drop upstreamed patch.
