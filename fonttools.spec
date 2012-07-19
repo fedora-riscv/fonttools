@@ -5,7 +5,7 @@
 
 Name:           fonttools
 Version:        2.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A tool to convert True/OpenType fonts to XML and back
 
 Group:          Development/Tools
@@ -70,6 +70,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jul 19 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
+
 * Fri Jan 13 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
 
