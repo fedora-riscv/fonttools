@@ -1,20 +1,14 @@
-%if ! (0%{?fedora} > 12 || 0%{?rhel} > 5)
-%{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
-%{!?python_sitearch: %global python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")}
-%endif
-
 Name:           fonttools
 Version:        2.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A tool to convert True/OpenType fonts to XML and back
 
 Group:          Development/Tools
 License:        BSD
 URL:            http://sourceforge.net/projects/%{name}/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires:  python-devel numpy
+BuildRequires:  python2-devel numpy
 Requires:       numpy
 
 Provides:       ttx = %{version}-%{release}
@@ -37,17 +31,12 @@ CFLAGS="$RPM_OPT_FLAGS" %{__python} setup.py build
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 %{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT%{python_sitearch}/FontTools/fontTools/ttLib/test
 chmod 0755 $RPM_BUILD_ROOT%{python_sitearch}/FontTools/fontTools/misc/eexecOp.so
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
 
 %files
-%defattr(-,root,root,-)
 %doc LICENSE.txt
 %doc Doc/ChangeLog Doc/changes.txt Doc/documentation.html
 %{python_sitearch}/FontTools.pth
@@ -70,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Nov 29 2012 Parag <pnemade AT redhat DOT com> - 2.3-6
+- Resolves:rh#880063 - BR: python2-devel required
+
 * Thu Jul 19 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
 
