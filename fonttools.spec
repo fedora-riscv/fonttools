@@ -1,6 +1,6 @@
 Name:           fonttools
-Version:        2.3
-Release:        7%{?dist}
+Version:        2.4
+Release:        1%{?dist}
 Summary:        A tool to convert True/OpenType fonts to XML and back
 
 Group:          Development/Tools
@@ -22,12 +22,8 @@ TrueType and OpenType fonts to an XML-based text format and vice versa.
 %prep
 %setup -q
 
-sed -i.nobang '1 d' Lib/fontTools/ttx.py
-chmod a-x LICENSE.txt
-
-
 %build
-CFLAGS="$RPM_OPT_FLAGS" %{__python} setup.py build
+%{__python} setup.py build
 
 
 %install
@@ -59,6 +55,9 @@ chmod 0755 $RPM_BUILD_ROOT%{python_sitearch}/FontTools/fontTools/misc/eexecOp.so
 
 
 %changelog
+* Mon Jun 24 2013 Parag <pnemade AT redhat DOT com> - 2.4-1
+- New upstream release 2.4
+
 * Wed Feb 13 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
