@@ -1,12 +1,15 @@
 Name:           fonttools
-Version:        2.4
-Release:        4%{?dist}
+Version:        2.5
+Release:        1%{?dist}
 Summary:        A tool to convert True/OpenType fonts to XML and back
-
 Group:          Development/Tools
 License:        BSD
-URL:            http://sourceforge.net/projects/%{name}/
-Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+
+%global owner behdad
+%global commit 8388a2e37ce349dac6555bb824c82723e3b65fbf
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+URL:            http://sourceforge.net/%{owner}/%{name}/
+Source0:        https://github.com/%{owner}/%{name}/archive/%{commit}/%{name}-%{commit}.tar.gz
 
 BuildRequires:  python2-devel numpy
 Requires:       numpy
@@ -20,7 +23,7 @@ TrueType and OpenType fonts to an XML-based text format and vice versa.
 
 
 %prep
-%setup -q
+%setup -qn %{name}-%{commit}
 
 %build
 %{__python} setup.py build
@@ -29,12 +32,11 @@ TrueType and OpenType fonts to an XML-based text format and vice versa.
 %install
 %{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT%{python_sitearch}/FontTools/fontTools/ttLib/test
-chmod 0755 $RPM_BUILD_ROOT%{python_sitearch}/FontTools/fontTools/misc/eexecOp.so
 
 
 %files
 %doc LICENSE.txt
-%doc Doc/ChangeLog Doc/changes.txt Doc/documentation.html
+%doc Doc/changes.txt Doc/documentation.html
 %{python_sitearch}/FontTools.pth
 %dir %{python_sitearch}/FontTools
 %dir %{python_sitearch}/FontTools/fontTools
@@ -43,18 +45,23 @@ chmod 0755 $RPM_BUILD_ROOT%{python_sitearch}/FontTools/fontTools/misc/eexecOp.so
 %dir %{python_sitearch}/FontTools/fontTools/pens
 %dir %{python_sitearch}/FontTools/fontTools/ttLib
 %dir %{python_sitearch}/FontTools/fontTools/ttLib/tables
-%{python_sitearch}/FontTools/*.py*
 %{python_sitearch}/FontTools/fontTools/*.py*
 %{python_sitearch}/FontTools/fontTools/*/*.py*
 %{python_sitearch}/FontTools/fontTools/*/*/*.py*
-%{python_sitearch}/FontTools/fontTools/misc/eexecOp.so
 %{python_sitearch}/FontTools/fonttools-%{version}-py?.?.egg-info
+%{_bindir}/pyftinspect
+%{_bindir}/pyftmerge
+%{_bindir}/pyftsubset
 %{_bindir}/ttx
 %{_mandir}/man1/ttx.1.gz
 
 
 
 %changelog
+* Sat Nov 15 2014 Peter Oliver <rpm@mavit.org.uk> - 2.5-1
+- Changed upstream to https://github.com/behdad/fonttools.
+- Updated to version 2.5.
+
 * Sat Aug 16 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
 
