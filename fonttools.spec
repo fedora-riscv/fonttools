@@ -2,14 +2,9 @@ Name:           fonttools
 Version:        2.5
 Release:        1%{?dist}
 Summary:        A tool to convert True/OpenType fonts to XML and back
-Group:          Development/Tools
 License:        BSD
-
-%global owner behdad
-%global commit 8388a2e37ce349dac6555bb824c82723e3b65fbf
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-URL:            http://sourceforge.net/%{owner}/%{name}/
-Source0:        https://github.com/%{owner}/%{name}/archive/%{commit}/%{name}-%{commit}.tar.gz
+URL:            http://sourceforge.net/behdad/%{name}/
+Source0:        https://github.com/behdad/%{name}/%{name}-%{commit}.tar.gz
 
 BuildRequires:  python2-devel numpy
 Requires:       numpy
@@ -26,29 +21,29 @@ TrueType and OpenType fonts to an XML-based text format and vice versa.
 %setup -qn %{name}-%{commit}
 
 %build
-%{__python} setup.py build
+%{__python2} setup.py build
 
 
 %install
-%{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
+%{__python2} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT%{python_sitearch}/FontTools/fontTools/ttLib/test
 
 
 %files
 %doc LICENSE.txt
 %doc Doc/changes.txt Doc/documentation.html
-%{python_sitearch}/FontTools.pth
-%dir %{python_sitearch}/FontTools
-%dir %{python_sitearch}/FontTools/fontTools
-%dir %{python_sitearch}/FontTools/fontTools/encodings
-%dir %{python_sitearch}/FontTools/fontTools/misc
-%dir %{python_sitearch}/FontTools/fontTools/pens
-%dir %{python_sitearch}/FontTools/fontTools/ttLib
-%dir %{python_sitearch}/FontTools/fontTools/ttLib/tables
-%{python_sitearch}/FontTools/fontTools/*.py*
-%{python_sitearch}/FontTools/fontTools/*/*.py*
-%{python_sitearch}/FontTools/fontTools/*/*/*.py*
-%{python_sitearch}/FontTools/fonttools-%{version}-py?.?.egg-info
+%{python2_sitearch}/FontTools.pth
+%dir %{python2_sitearch}/FontTools
+%dir %{python2_sitearch}/FontTools/fontTools
+%dir %{python2_sitearch}/FontTools/fontTools/encodings
+%dir %{python2_sitearch}/FontTools/fontTools/misc
+%dir %{python2_sitearch}/FontTools/fontTools/pens
+%dir %{python2_sitearch}/FontTools/fontTools/ttLib
+%dir %{python2_sitearch}/FontTools/fontTools/ttLib/tables
+%{python2_sitearch}/FontTools/fontTools/*.py*
+%{python2_sitearch}/FontTools/fontTools/*/*.py*
+%{python2_sitearch}/FontTools/fontTools/*/*/*.py*
+%{python2_sitearch}/FontTools/fonttools-%{version}-py?.?.egg-info
 %{_bindir}/pyftinspect
 %{_bindir}/pyftmerge
 %{_bindir}/pyftsubset
@@ -61,6 +56,9 @@ rm -rf $RPM_BUILD_ROOT%{python_sitearch}/FontTools/fontTools/ttLib/test
 * Sat Nov 15 2014 Peter Oliver <rpm@mavit.org.uk> - 2.5-1
 - Changed upstream to https://github.com/behdad/fonttools.
 - Updated to version 2.5.
+- Use python2 macros (Parag Nemade)
+- Use released tarball (Parag Nemade)
+- Remove optional group tag (Parag Nemade)
 
 * Sat Aug 16 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
