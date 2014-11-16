@@ -4,7 +4,7 @@ Release:        1%{?dist}
 Summary:        A tool to convert True/OpenType fonts to XML and back
 License:        BSD
 URL:            http://sourceforge.net/behdad/%{name}/
-Source0:        https://github.com/behdad/%{name}/%{name}-%{commit}.tar.gz
+Source0:        https://github.com/behdad/%{name}/archive/%{version}.tar.gz
 
 BuildRequires:  python2-devel numpy
 Requires:       numpy
