@@ -1,14 +1,15 @@
 Name:           fonttools
 Version:        2.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool to convert True/OpenType fonts to XML and back
 License:        BSD
-URL:            http://sourceforge.net/behdad/%{name}/
+URL:            https://github.com/behdad/%{name}/
 Source0:        https://github.com/behdad/%{name}/archive/%{version}.tar.gz
 
 BuildRequires:  python2-devel numpy
 Requires:       numpy
 
+BuildArch:      noarch
 Provides:       ttx = %{version}-%{release}
 
 %description
@@ -16,43 +17,42 @@ TTX/FontTools is a tool for manipulating TrueType and OpenType fonts. It is
 written in Python and has a BSD-style, open-source license. TTX can dump
 TrueType and OpenType fonts to an XML-based text format and vice versa.
 
-
 %prep
-%setup -qn %{name}-%{commit}
+%setup -q
 
 %build
 %{__python2} setup.py build
 
-
 %install
 %{__python2} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
-rm -rf $RPM_BUILD_ROOT%{python_sitearch}/FontTools/fontTools/ttLib/test
-
 
 %files
 %doc LICENSE.txt
 %doc Doc/changes.txt Doc/documentation.html
-%{python2_sitearch}/FontTools.pth
-%dir %{python2_sitearch}/FontTools
-%dir %{python2_sitearch}/FontTools/fontTools
-%dir %{python2_sitearch}/FontTools/fontTools/encodings
-%dir %{python2_sitearch}/FontTools/fontTools/misc
-%dir %{python2_sitearch}/FontTools/fontTools/pens
-%dir %{python2_sitearch}/FontTools/fontTools/ttLib
-%dir %{python2_sitearch}/FontTools/fontTools/ttLib/tables
-%{python2_sitearch}/FontTools/fontTools/*.py*
-%{python2_sitearch}/FontTools/fontTools/*/*.py*
-%{python2_sitearch}/FontTools/fontTools/*/*/*.py*
-%{python2_sitearch}/FontTools/fonttools-%{version}-py?.?.egg-info
+%{python2_sitelib}/FontTools.pth
+%dir %{python2_sitelib}/FontTools
+%dir %{python2_sitelib}/FontTools/fontTools
+%dir %{python2_sitelib}/FontTools/fontTools/encodings
+%dir %{python2_sitelib}/FontTools/fontTools/misc
+%dir %{python2_sitelib}/FontTools/fontTools/pens
+%dir %{python2_sitelib}/FontTools/fontTools/ttLib
+%dir %{python2_sitelib}/FontTools/fontTools/ttLib/tables
+%{python2_sitelib}/FontTools/fontTools/*.py*
+%{python2_sitelib}/FontTools/fontTools/*/*.py*
+%{python2_sitelib}/FontTools/fontTools/*/*/*.py*
+%{python2_sitelib}/FontTools/fonttools-%{version}-py?.?.egg-info
 %{_bindir}/pyftinspect
 %{_bindir}/pyftmerge
 %{_bindir}/pyftsubset
 %{_bindir}/ttx
 %{_mandir}/man1/ttx.1.gz
 
-
-
 %changelog
+* Sun Nov 16 2014 Parag <pnemade AT redhat DOT com> - 2.5-2
+- Upstream dropped file eexecOp.so so make this package noarch
+- Change %%{python2_sitearch} to %%{python2_sitelib} python2 macros
+- Fix URL tag (rh#1164448)
+
 * Sat Nov 15 2014 Peter Oliver <rpm@mavit.org.uk> - 2.5-1
 - Changed upstream to https://github.com/behdad/fonttools.
 - Updated to version 2.5.
