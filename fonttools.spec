@@ -1,6 +1,6 @@
 Name:           fonttools
 Version:        2.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A tool to convert True/OpenType fonts to XML and back
 License:        BSD
 URL:            https://github.com/behdad/%{name}/
@@ -48,6 +48,9 @@ TrueType and OpenType fonts to an XML-based text format and vice versa.
 %{_mandir}/man1/ttx.1.gz
 
 %changelog
+* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
 * Sun Nov 16 2014 Parag <pnemade AT redhat DOT com> - 2.5-2
 - Upstream dropped file eexecOp.so so make this package noarch
 - Change %%{python2_sitearch} to %%{python2_sitelib} python2 macros
