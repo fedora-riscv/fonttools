@@ -1,14 +1,14 @@
+%global gittag0 3.0
+
 Name:           fonttools
-Version:        2.5
-Release:        4%{?dist}
+Version:        3.0
+Release:        1%{?dist}
 Summary:        A tool to convert True/OpenType fonts to XML and back
 License:        BSD
 URL:            https://github.com/behdad/%{name}/
-Source0:        https://github.com/behdad/%{name}/archive/%{version}.tar.gz
+Source0:        https://github.com/behdad/%{name}/archive/%{gittag0}.tar.gz#/%{name}-%{version}.tar.gz
 
-BuildRequires:  python2-devel numpy
-Requires:       numpy
-
+Requires:       python3-fonttools
 BuildArch:      noarch
 Provides:       ttx = %{version}-%{release}
 
@@ -17,39 +17,90 @@ TTX/FontTools is a tool for manipulating TrueType and OpenType fonts. It is
 written in Python and has a BSD-style, open-source license. TTX can dump
 TrueType and OpenType fonts to an XML-based text format and vice versa.
 
+%package -n python2-fonttools
+Summary:        Python 2 fonttools library
+%{?python_provide:%python_provide python2-%{name}}
+BuildRequires:  python2-devel
+BuildRequires:  numpy
+BuildArch:      noarch
+Requires:       numpy
+
+%description -n python2-fonttools
+TTX/FontTools is a tool for manipulating TrueType and OpenType fonts. It is
+written in Python and has a BSD-style, open-source license. TTX can dump
+TrueType and OpenType fonts to an XML-based text format and vice versa.
+
+
+%package -n python3-fonttools
+Summary:        Python 3 fonttools library
+%{?python_provide:%python_provide python3-%{name}}
+BuildRequires:  python3-devel
+BuildRequires:  python3-numpy
+BuildArch:      noarch
+Requires:       python3-numpy
+
+%description -n python3-fonttools
+TTX/FontTools is a tool for manipulating TrueType and OpenType fonts. It is
+written in Python and has a BSD-style, open-source license. TTX can dump
+TrueType and OpenType fonts to an XML-based text format and vice versa.
+
 %prep
-%setup -q
-sed -i 's/:{}/:{"True":True,"False":False}/g' Lib/fontTools/misc/textTools.py
+%setup -qc
+pushd %{name}-%{version}
+mv LICENSE.txt Doc/documentation.html Doc/changes.txt ../
+popd
+pwd
+mv %{name}-%{version} python2
+
+pushd python2
+rm -rf *.egg-info
+popd
+
+cp -a python2 python3
+find python2 -name '*.py' | xargs sed -i 's|^#!python|#!%{__python2}|'
+find python3 -name '*.py' | xargs sed -i 's|^#!python|#!%{__python3}|'
 
 %build
+pushd python2
 %{__python2} setup.py build
+popd
+pushd python3
+%{__python3} setup.py build
+popd
 
 %install
-%{__python2} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
+pushd python2
+%{__python2} setup.py install --skip-build --root %{buildroot}
+popd
+
+pushd python3
+%{__python3} setup.py install --skip-build --root %{buildroot}
+popd
 
 %files
-%doc LICENSE.txt
-%doc Doc/changes.txt Doc/documentation.html
-%{python2_sitelib}/FontTools.pth
-%dir %{python2_sitelib}/FontTools
-%dir %{python2_sitelib}/FontTools/fontTools
-%dir %{python2_sitelib}/FontTools/fontTools/encodings
-%dir %{python2_sitelib}/FontTools/fontTools/misc
-%dir %{python2_sitelib}/FontTools/fontTools/pens
-%dir %{python2_sitelib}/FontTools/fontTools/ttLib
-%dir %{python2_sitelib}/FontTools/fontTools/ttLib/tables
-%{python2_sitelib}/FontTools/fontTools/*.py*
-%{python2_sitelib}/FontTools/fontTools/*/*.py*
-%{python2_sitelib}/FontTools/fontTools/*/*/*.py*
-%{python2_sitelib}/FontTools/fonttools-%{version}-py?.?.egg-info
 %{_bindir}/pyftinspect
 %{_bindir}/pyftmerge
 %{_bindir}/pyftsubset
 %{_bindir}/ttx
 %{_mandir}/man1/ttx.1.gz
 
+%files -n python2-fonttools
+%license LICENSE.txt
+%doc changes.txt documentation.html
+%{python2_sitelib}/FontTools.pth
+%{python2_sitelib}/FontTools
+
+%files -n python3-fonttools
+%license LICENSE.txt
+%doc changes.txt documentation.html
+%{python3_sitelib}/FontTools.pth
+%{python3_sitelib}/FontTools
+
 %changelog
-* Mon Jul 13 2015 Parag Nemade <pnemade AT fedoraproject DOT org> - 2.5-4
+* Wed Sep 02 2015 Parag Nemade <pnemade AT redhat DOT com> - 3.0-1
+- Updated to version 3.0
+
+* Mon Jul 13 2015 Parag Nemade <pnemade AT redhat DOT com> - 2.5-4
 - Fix ttx execution backtrace (rh#1242549)
 
 * Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.5-3
