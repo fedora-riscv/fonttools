@@ -2,7 +2,7 @@
 
 Name:           fonttools
 Version:        3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool to convert True/OpenType fonts to XML and back
 License:        BSD
 URL:            https://github.com/behdad/%{name}/
@@ -97,6 +97,9 @@ popd
 %{python3_sitelib}/FontTools
 
 %changelog
+* Tue Nov 10 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Changes/python3.5
+
 * Wed Sep 02 2015 Parag Nemade <pnemade AT redhat DOT com> - 3.0-1
 - Updated to version 3.0
 
