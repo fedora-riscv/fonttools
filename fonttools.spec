@@ -1,22 +1,25 @@
-%global gittag0 3.0
+%global pypi_name fonttools
+%global desc \
+FontTools/TTX is a library to manipulate font files from Python. It supports \
+reading and writing of TrueType/OpenType fonts, reading and writing of AFM \
+files, reading (and partially writing) of PS Type 1 fonts. The package also \
+contains a tool called “TTX” which converts TrueType/OpenType fonts to and \
+from an XML-based format.
 
 Name:           fonttools
-Version:        3.0
-Release:        5%{?dist}
-Summary:        A tool to convert True/OpenType fonts to XML and back
+Version:        3.1.2
+Release:        1%{?dist}
+Summary:        Tools to manipulate font files
 License:        BSD
-URL:            https://github.com/behdad/%{name}/
-Source0:        https://github.com/behdad/%{name}/archive/%{gittag0}.tar.gz#/%{name}-%{version}.tar.gz
-Patch0:         0001-EBLC-Decompile-and-release-copies-of-data-early.patch
+URL:            https://github.com/fonttools/%{name}/
+Source0:        https://files.pythonhosted.org/packages/source/f/%{pypi_name}/%{pypi_name}-%{version}.zip
 
 Requires:       python3-fonttools
 BuildArch:      noarch
 Provides:       ttx = %{version}-%{release}
 
 %description
-TTX/FontTools is a tool for manipulating TrueType and OpenType fonts. It is
-written in Python and has a BSD-style, open-source license. TTX can dump
-TrueType and OpenType fonts to an XML-based text format and vice versa.
+%{desc}
 
 %package -n python2-fonttools
 Summary:        Python 2 fonttools library
@@ -27,10 +30,7 @@ BuildArch:      noarch
 Requires:       numpy
 
 %description -n python2-fonttools
-TTX/FontTools is a tool for manipulating TrueType and OpenType fonts. It is
-written in Python and has a BSD-style, open-source license. TTX can dump
-TrueType and OpenType fonts to an XML-based text format and vice versa.
-
+%{desc}
 
 %package -n python3-fonttools
 Summary:        Python 3 fonttools library
@@ -41,43 +41,19 @@ BuildArch:      noarch
 Requires:       python3-numpy
 
 %description -n python3-fonttools
-TTX/FontTools is a tool for manipulating TrueType and OpenType fonts. It is
-written in Python and has a BSD-style, open-source license. TTX can dump
-TrueType and OpenType fonts to an XML-based text format and vice versa.
+%{desc}
 
 %prep
-%setup -qc
-%patch0 -p0
-pushd %{name}-%{version}
-mv LICENSE.txt Doc/documentation.html Doc/changes.txt ../
-popd
-pwd
-mv %{name}-%{version} python2
-
-pushd python2
+%autosetup
 rm -rf *.egg-info
-popd
-
-cp -a python2 python3
-find python2 -name '*.py' | xargs sed -i 's|^#!python|#!%{__python2}|'
-find python3 -name '*.py' | xargs sed -i 's|^#!python|#!%{__python3}|'
 
 %build
-pushd python2
-%{__python2} setup.py build
-popd
-pushd python3
-%{__python3} setup.py build
-popd
+%py2_build
+%py3_build
 
 %install
-pushd python2
 %{__python2} setup.py install --skip-build --root %{buildroot}
-popd
-
-pushd python3
 %{__python3} setup.py install --skip-build --root %{buildroot}
-popd
 
 %files
 %{_bindir}/pyftinspect
@@ -87,18 +63,21 @@ popd
 %{_mandir}/man1/ttx.1.gz
 
 %files -n python2-fonttools
-%license LICENSE.txt
-%doc changes.txt documentation.html
+%license LICENSE
+%doc NEWS README.md
 %{python2_sitelib}/FontTools.pth
 %{python2_sitelib}/FontTools
 
 %files -n python3-fonttools
-%license LICENSE.txt
-%doc changes.txt documentation.html
+%license LICENSE
+%doc NEWS README.md
 %{python3_sitelib}/FontTools.pth
 %{python3_sitelib}/FontTools
 
 %changelog
+* Mon Oct 10 2016 Parag Nemade <pnemade AT redhat DOT com> - 3.1.2-1
+- Update to version 3.1.2
+
 * Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.0-5
 - https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
 
