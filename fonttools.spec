@@ -25,7 +25,7 @@ Provides:       ttx = %{version}-%{release}
 Summary:        Python 2 fonttools library
 %{?python_provide:%python_provide python2-%{name}}
 BuildRequires:  python2-devel
-BuildRequires:  python2-setuptools
+BuildRequires:  python2-setuptools_scm
 BuildRequires:  numpy
 BuildArch:      noarch
 Requires:       numpy
@@ -38,7 +38,7 @@ Summary:        Python 3 fonttools library
 %{?python_provide:%python_provide python3-%{name}}
 BuildRequires:  python3-devel
 BuildRequires:  python3-numpy
-BuildRequires:  python3-setuptools
+BuildRequires:  python3-setuptools_scm
 BuildArch:      noarch
 Requires:       python3-numpy
 
