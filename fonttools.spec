@@ -49,6 +49,8 @@ Requires:       python3-numpy
 %autosetup
 rm -rf *.egg-info
 
+sed -i '1d' Lib/fontTools/mtiLib/__init__.py
+
 %build
 %py2_build
 %py3_build
@@ -62,19 +64,25 @@ rm -rf *.egg-info
 %{_bindir}/pyftmerge
 %{_bindir}/pyftsubset
 %{_bindir}/ttx
+%{_bindir}/fonttools
 %{_mandir}/man1/ttx.1.gz
 
 %files -n python2-fonttools
 %license LICENSE
 %doc NEWS README.md
-%{python2_sitelib}/FontTools.pth
-%{python2_sitelib}/FontTools
+%{python2_sitelib}/fontTools
+%{python2_sitelib}/sstruct.py*
+%{python2_sitelib}/xmlWriter.py*
+%{python2_sitelib}/fonttools-3.2.0-py2.?.egg-info
 
 %files -n python3-fonttools
 %license LICENSE
 %doc NEWS README.md
-%{python3_sitelib}/FontTools.pth
-%{python3_sitelib}/FontTools
+%{python3_sitelib}/fontTools
+%{python3_sitelib}/sstruct.py*
+%{python3_sitelib}/xmlWriter.py*
+%{python3_sitelib}/__pycache__/*
+%{python3_sitelib}/fonttools-3.2.0-py3.?.egg-info
 
 %changelog
 * Thu Nov 03 2016 Parag Nemade <pnemade AT redhat DOT com> - 3.2.0-1
