@@ -73,7 +73,7 @@ sed -i '1d' Lib/fontTools/mtiLib/__init__.py
 %{python2_sitelib}/fontTools
 %{python2_sitelib}/sstruct.py*
 %{python2_sitelib}/xmlWriter.py*
-%{python2_sitelib}/fonttools-3.2.0-py2.?.egg-info
+%{python2_sitelib}/%{name}-%{version}-py2.?.egg-info
 
 %files -n python3-fonttools
 %license LICENSE
@@ -82,7 +82,7 @@ sed -i '1d' Lib/fontTools/mtiLib/__init__.py
 %{python3_sitelib}/sstruct.py*
 %{python3_sitelib}/xmlWriter.py*
 %{python3_sitelib}/__pycache__/*
-%{python3_sitelib}/fonttools-3.2.0-py3.?.egg-info
+%{python3_sitelib}/%{name}-%{version}-py3.?.egg-info
 
 %changelog
 * Tue Nov 08 2016 Parag Nemade <pnemade AT redhat DOT com> - 3.2.1-1
