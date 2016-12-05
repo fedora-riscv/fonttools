@@ -7,15 +7,12 @@ contains a tool called “TTX” which converts TrueType/OpenType fonts to and \
 from an XML-based format.
 
 Name:           fonttools
-Version:        3.2.2
-Release:        2%{?dist}
+Version:        3.2.3
+Release:        1%{?dist}
 Summary:        Tools to manipulate font files
 License:        BSD
 URL:            https://github.com/fonttools/%{name}/
 Source0:        https://files.pythonhosted.org/packages/source/f/%{pypi_name}/%{pypi_name}-%{version}.zip
-
-# Upstream merged patch
-Patch0:         Make-inspect.py-file-compatible-to-run-with-python2-python3.patch
 
 Requires:       python3-fonttools
 BuildArch:      noarch
@@ -49,7 +46,7 @@ Requires:       python3-numpy
 %{desc}
 
 %prep
-%autosetup -p1
+%autosetup
 rm -rf *.egg-info
 
 sed -i '1d' Lib/fontTools/mtiLib/__init__.py
@@ -88,6 +85,9 @@ sed -i '1d' Lib/fontTools/mtiLib/__init__.py
 %{python3_sitelib}/%{name}-%{version}-py3.?.egg-info
 
 %changelog
+* Mon Dec 05 2016 Parag Nemade <pnemade AT redhat DOT com> - 3.2.3-1
+- Update to version 3.2.3
+
 * Tue Nov 29 2016 Parag Nemade <pnemade AT redhat DOT com> - 3.2.2-2
 - Resolves: rh#1278201 - ImportError: No module named 'pygtk' 
 
