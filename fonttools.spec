@@ -50,6 +50,7 @@ Requires:       python3-numpy
 rm -rf *.egg-info
 
 sed -i '1d' Lib/fontTools/mtiLib/__init__.py
+sed -i '60d' setup.py
 
 %build
 %py2_build
@@ -71,22 +72,18 @@ sed -i '1d' Lib/fontTools/mtiLib/__init__.py
 %license LICENSE
 %doc NEWS README.md
 %{python2_sitelib}/fontTools
-%{python2_sitelib}/sstruct.py*
-%{python2_sitelib}/xmlWriter.py*
 %{python2_sitelib}/%{name}-%{version}-py2.?.egg-info
 
 %files -n python3-fonttools
 %license LICENSE
 %doc NEWS README.md
 %{python3_sitelib}/fontTools
-%{python3_sitelib}/sstruct.py*
-%{python3_sitelib}/xmlWriter.py*
-%{python3_sitelib}/__pycache__/*
 %{python3_sitelib}/%{name}-%{version}-py3.?.egg-info
 
 %changelog
 * Wed Dec 07 2016 Parag Nemade <pnemade AT redhat DOT com> - 3.3.0-1
 - Update to version 3.3.0
+- This release removed top level sstruct and xmlWriter
 
 * Mon Dec 05 2016 Parag Nemade <pnemade AT redhat DOT com> - 3.2.3-1
 - Update to version 3.2.3
