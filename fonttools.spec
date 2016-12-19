@@ -8,7 +8,7 @@ from an XML-based format.
 
 Name:           fonttools
 Version:        3.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools to manipulate font files
 License:        BSD
 URL:            https://github.com/fonttools/%{name}/
@@ -81,6 +81,9 @@ sed -i '60d' setup.py
 %{python3_sitelib}/%{name}-%{version}-py3.?.egg-info
 
 %changelog
+* Mon Dec 19 2016 Miro Hrončok <mhroncok@redhat.com> - 3.3.0-2
+- Rebuild for Python 3.6
+
 * Wed Dec 07 2016 Parag Nemade <pnemade AT redhat DOT com> - 3.3.0-1
 - Update to version 3.3.0
 - This release removed top level sstruct and xmlWriter
