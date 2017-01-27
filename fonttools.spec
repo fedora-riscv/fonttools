@@ -69,18 +69,19 @@ sed -i '1d' Lib/fontTools/mtiLib/__init__.py
 
 %files -n python2-fonttools
 %license LICENSE
-%doc NEWS README.md
+%doc NEWS.rst README.rst
 %{python2_sitelib}/fontTools
 %{python2_sitelib}/%{name}-%{version}-py2.?.egg-info
 
 %files -n python3-fonttools
 %license LICENSE
-%doc NEWS README.md
+%doc NEWS.rst README.rst
 %{python3_sitelib}/fontTools
 %{python3_sitelib}/%{name}-%{version}-py3.?.egg-info
 
 %changelog
 * Fri Jan 27 2017 Parag Nemade <pnemade AT redhat DOT com> - 3.6.0-1
+- Update docs file names
 - Update to 3.6.0 version
 
 * Mon Jan 16 2017 Parag Nemade <pnemade AT redhat DOT com> - 3.5.0-1
