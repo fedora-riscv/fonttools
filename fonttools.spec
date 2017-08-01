@@ -7,8 +7,8 @@ contains a tool called “TTX” which converts TrueType/OpenType fonts to and \
 from an XML-based format.
 
 Name:           fonttools
-Version:        3.13.1
-Release:        2%{?dist}
+Version:        3.14.0
+Release:        1%{?dist}
 Summary:        Tools to manipulate font files
 License:        BSD
 URL:            https://github.com/fonttools/%{name}/
@@ -80,6 +80,9 @@ sed -i '1d' Lib/fontTools/mtiLib/__init__.py
 %{python3_sitelib}/%{name}-%{version}-py3.?.egg-info
 
 %changelog
+* Tue Aug 01 2017 Parag Nemade <pnemade AT redhat DOT com> - 3.14.0-1
+- Update to 3.14.0 version
+
 * Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
