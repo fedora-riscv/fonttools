@@ -11,8 +11,8 @@ Version:        3.24.1
 Release:        1%{?dist}
 Summary:        Tools to manipulate font files
 License:        BSD
-URL:            https://github.com/fonttools/%{name}/
-Source0:        https://files.pythonhosted.org/packages/source/f/%{pypi_name}/%{pypi_name}-%{version}.zip
+URL:            https://github.com/%{name}/%{name}/
+Source0:        https://github.com/%{name}/%{name}/releases/download/%{version}/%{pypi_name}-%{version}.zip
 
 Requires:       python3-fonttools
 BuildArch:      noarch
