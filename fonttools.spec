@@ -8,7 +8,7 @@ from an XML-based format.
 
 Name:           fonttools
 Version:        3.28.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools to manipulate font files
 License:        MIT
 URL:            https://github.com/%{name}/%{name}/
@@ -80,6 +80,9 @@ sed -i '1d' Lib/fontTools/mtiLib/__init__.py
 %{python3_sitelib}/%{name}-%{version}-py3.?.egg-info
 
 %changelog
+* Mon Jul 02 2018 Miro Hrončok <mhroncok@redhat.com> - 3.28.0-2
+- Rebuilt for Python 3.7
+
 * Sat Jun 23 2018 Parag Nemade <pnemade AT redhat DOT com> - 3.28.0-1
 - Update to 3.28.0 version
 - License corrected to MIT as upstream changed it since 3.21.0 release
