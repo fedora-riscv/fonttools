@@ -8,7 +8,7 @@ from an XML-based format.
 
 Name:           fonttools
 Version:        3.28.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tools to manipulate font files
 License:        MIT
 URL:            https://github.com/%{name}/%{name}/
@@ -80,6 +80,9 @@ sed -i '1d' Lib/fontTools/mtiLib/__init__.py
 %{python3_sitelib}/%{name}-%{version}-py3.?.egg-info
 
 %changelog
+* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 3.28.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
 * Mon Jul 02 2018 Miro Hrončok <mhroncok@redhat.com> - 3.28.0-2
 - Rebuilt for Python 3.7
 
