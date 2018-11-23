@@ -7,12 +7,12 @@ contains a tool called “TTX” which converts TrueType/OpenType fonts to and \
 from an XML-based format.
 
 Name:           fonttools
-Version:        3.31.0
+Version:        3.32.0
 Release:        1%{?dist}
 Summary:        Tools to manipulate font files
 License:        MIT
 URL:            https://github.com/%{name}/%{name}/
-Source0:        https://github.com/%{name}/%{name}/releases/download/%{version}/%{pypi_name}-%{version}.zip
+Source0:        https://github.com/%{name}/%{name}/archive/%{version}.tar.gz#/%{pypi_name}-%{version}.zip
 
 Requires:       python3-fonttools
 BuildArch:      noarch
@@ -80,6 +80,9 @@ sed -i '1d' Lib/fontTools/mtiLib/__init__.py
 %{python3_sitelib}/%{name}-%{version}-py3.?.egg-info
 
 %changelog
+* Fri Nov 23 2018 Parag Nemade <pnemade AT redhat DOT com> - 3.32.0-1
+- Update to 3.32.0 version
+
 * Thu Oct 25 2018 Parag Nemade <pnemade AT redhat DOT com> - 3.31.0-1
 - Update to 3.31.0 version (#1642082)
 
