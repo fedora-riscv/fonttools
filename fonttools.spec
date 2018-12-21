@@ -1,13 +1,12 @@
 %global pypi_name fonttools
 %global desc \
-FontTools/TTX is a library to manipulate font files from Python. It supports \
-reading and writing of TrueType/OpenType fonts, reading and writing of AFM \
-files, reading (and partially writing) of PS Type 1 fonts. The package also \
-contains a tool called “TTX” which converts TrueType/OpenType fonts to and \
-from an XML-based format.
+fontTools is a library for manipulating fonts, written in Python. The project \
+includes the TTX tool, that can convert TrueType and OpenType fonts to and \
+from an XML text format, which is also called TTX. It supports TrueType, \
+OpenType, AFM and to an extent Type 1 and some Mac-specific formats.
 
 Name:           fonttools
-Version:        3.32.0
+Version:        3.34.2
 Release:        1%{?dist}
 Summary:        Tools to manipulate font files
 License:        MIT
@@ -26,9 +25,7 @@ Summary:        Python 2 fonttools library
 %{?python_provide:%python_provide python2-%{name}}
 BuildRequires:  python2-devel
 BuildRequires:  python2-setuptools_scm
-BuildRequires:  numpy
 BuildArch:      noarch
-Requires:       numpy
 
 %description -n python2-fonttools
 %{desc}
@@ -37,10 +34,12 @@ Requires:       numpy
 Summary:        Python 3 fonttools library
 %{?python_provide:%python_provide python3-%{name}}
 BuildRequires:  python3-devel
-BuildRequires:  python3-numpy
 BuildRequires:  python3-setuptools_scm
 BuildArch:      noarch
-Requires:       python3-numpy
+
+Requires:       python3-brotli
+Requires:       python3-munkres
+
 
 %description -n python3-fonttools
 %{desc}
@@ -80,6 +79,9 @@ sed -i '1d' Lib/fontTools/mtiLib/__init__.py
 %{python3_sitelib}/%{name}-%{version}-py3.?.egg-info
 
 %changelog
+* Fri Dec 21 2018 Parag Nemade <pnemade AT redhat DOT com> - 3.34.2-1
+- Update to 3.34.2 version
+
 * Fri Nov 23 2018 Parag Nemade <pnemade AT redhat DOT com> - 3.32.0-1
 - Update to 3.32.0 version
 
