@@ -65,7 +65,7 @@ sed -i '1d' Lib/fontTools/mtiLib/__init__.py
 %{_bindir}/pyftsubset
 %{_bindir}/ttx
 %{_bindir}/fonttools
-%{_mandir}/man1/ttx.1.gz
+%{_mandir}/man1/ttx.1*
 
 %files -n python2-fonttools
 %license LICENSE
