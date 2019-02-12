@@ -8,13 +8,14 @@ from an XML-based format.
 
 Name:           fonttools
 Version:        3.29.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools to manipulate font files
 License:        MIT
 URL:            https://github.com/%{name}/%{name}/
 Source0:        https://github.com/%{name}/%{name}/releases/download/%{version}/%{pypi_name}-%{version}.zip
 
 Requires:       python3-fonttools
+Requires:       python3-setuptools
 BuildArch:      noarch
 Provides:       ttx = %{version}-%{release}
 
@@ -80,6 +81,9 @@ sed -i '1d' Lib/fontTools/mtiLib/__init__.py
 %{python3_sitelib}/%{name}-%{version}-py3.?.egg-info
 
 %changelog
+* Tue Feb 12 2019 Kalev Lember <klember@redhat.com> - 3.29.0-2
+- Add missing requires on python3-setuptools (#1676290)
+
 * Sat Jul 28 2018 Parag Nemade <pnemade AT redhat DOT com> - 3.29.0-1
 - Update to 3.29.0 version (#1609078)
 
