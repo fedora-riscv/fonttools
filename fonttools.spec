@@ -10,7 +10,7 @@ Version:        3.39.0
 Release:        1%{?dist}
 Summary:        Tools to manipulate font files
 License:        MIT
-URL:            https://github.com/%{name}/%{name}/
+URL:            https://github.com/fonttools/fonttools/
 Source0:        https://github.com/%{name}/%{name}/archive/%{version}.tar.gz#/%{pypi_name}-%{version}.zip
 
 Requires:       python3-fonttools
@@ -19,16 +19,6 @@ BuildArch:      noarch
 Provides:       ttx = %{version}-%{release}
 
 %description
-%{desc}
-
-%package -n python2-fonttools
-Summary:        Python 2 fonttools library
-%{?python_provide:%python_provide python2-%{name}}
-BuildRequires:  python2-devel
-BuildRequires:  python2-setuptools_scm
-BuildArch:      noarch
-
-%description -n python2-fonttools
 %{desc}
 
 %package -n python3-fonttools
@@ -52,26 +42,17 @@ rm -rf *.egg-info
 sed -i '1d' Lib/fontTools/mtiLib/__init__.py
 
 %build
-%py2_build
 %py3_build
 
 %install
-%{__python2} setup.py install --skip-build --root %{buildroot}
 %{__python3} setup.py install --skip-build --root %{buildroot}
 
 %files
-%{_bindir}/pyftinspect
 %{_bindir}/pyftmerge
 %{_bindir}/pyftsubset
 %{_bindir}/ttx
 %{_bindir}/fonttools
 %{_mandir}/man1/ttx.1*
-
-%files -n python2-fonttools
-%license LICENSE
-%doc NEWS.rst README.rst
-%{python2_sitelib}/fontTools
-%{python2_sitelib}/%{name}-%{version}-py2.?.egg-info
 
 %files -n python3-fonttools
 %license LICENSE
@@ -82,6 +63,7 @@ sed -i '1d' Lib/fontTools/mtiLib/__init__.py
 %changelog
 * Sat Mar 23 2019 Parag Nemade <pnemade AT redhat DOT com> - 3.39.0-1
 - Update to 3.39.0 version (#1690561)
+- Removed python2 package
 
 * Mon Feb 18 2019 Parag Nemade <pnemade AT redhat DOT com> - 3.38.0-1
 - Update to 3.38.0 version (#1678366)
