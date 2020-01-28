@@ -7,7 +7,7 @@ OpenType, AFM and to an extent Type 1 and some Mac-specific formats.
 
 Name:           fonttools
 Version:        4.2.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools to manipulate font files
 License:        MIT
 URL:            https://github.com/fonttools/fonttools/
@@ -61,6 +61,9 @@ sed -i '1d' Lib/fontTools/mtiLib/__init__.py
 %{python3_sitelib}/%{name}-%{version}-py3.?.egg-info
 
 %changelog
+* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
 * Sat Jan 18 2020 Parag Nemade <pnemade AT redhat DOT com> - 4.2.4-1
 - Update to 4.2.4 version (#1788778)
 
