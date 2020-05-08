@@ -1,0 +1,26 @@
+---
+- hosts: localhost
+  tags:
+  - classic
+  roles:
+  - role: standard-test-source
+ 
+- hosts: localhost
+  tags:
+  - classic
+  roles:
+  - role: standard-test-basic
+    tests:
+    - smoke
+    required_packages:
+    - python3-pytest
+    - python3-brotli
+    - python3-scipy
+    - python3-pluggy
+    - python3-packaging
+    - python3-attrs
+    - python3-pyparsing
+    - python3-gobject
+    - atk-devel
+    - pango-devel
+    - gtk3-devel

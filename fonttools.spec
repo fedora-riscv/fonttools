@@ -7,7 +7,7 @@ OpenType, AFM and to an extent Type 1 and some Mac-specific formats.
 
 Name:           fonttools
 Version:        4.9.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tools to manipulate font files
 License:        MIT
 URL:            https://github.com/fonttools/fonttools/
@@ -26,6 +26,12 @@ Summary:        Python 3 fonttools library
 %{?python_provide:%python_provide python3-%{name}}
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools_scm
+BuildRequires:  python3-pytest
+BuildRequires:  python3-brotli
+BuildRequires:  python3-munkres
+BuildRequires:  python3-scipy
+BuildRequires:  python3-fs
+
 BuildArch:      noarch
 
 Requires:       python3-brotli
@@ -50,6 +56,9 @@ sed -i '1d' Lib/fontTools/mtiLib/__init__.py
 %install
 %{__python3} setup.py install --skip-build --root %{buildroot}
 
+%check
+PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m pytest --ignore Tests/misc/plistlib_test.py
+
 %files
 %{_bindir}/pyftmerge
 %{_bindir}/pyftsubset
@@ -64,6 +73,9 @@ sed -i '1d' Lib/fontTools/mtiLib/__init__.py
 %{python3_sitelib}/%{name}-%{version}-py3.?.egg-info
 
 %changelog
+* Fri May 08 2020 Parag Nemade <pnemade AT redhat DOT com> - 4.9.0-3
+- enable tests
+
 * Thu May 07 2020 Parag Nemade <pnemade AT redhat DOT com> - 4.9.0-2
 - Fix source tarball
 
