@@ -7,7 +7,7 @@ OpenType, AFM and to an extent Type 1 and some Mac-specific formats.
 
 Name:           fonttools
 Version:        4.12.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools to manipulate font files
 License:        MIT
 URL:            https://github.com/fonttools/fonttools/
@@ -40,6 +40,10 @@ Requires:       python3-lxml
 Requires:       python3-scipy
 Requires:       python3-fs
 
+# From 3.31.0 and on, python3-fonttools incorporated the ufolib project under fontTools.ufoLib
+# python-ufolib has been retired and fontTools.ufoLib should be used instead.
+# See https://github.com/fonttools/fonttools/releases/tag/3.31.0 for further reference
+Obsoletes: python3-ufolib <= 2.1.1-11
 
 %description -n python3-fonttools
 %{desc}
@@ -73,6 +77,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m pytest --ignore Tests/mi
 %{python3_sitelib}/%{name}-%{version}-py3.?.egg-info
 
 %changelog
+* Sun Jun 21 2020 Athos Ribeiro <athoscr@fedoraproject.org> - 4.12.1-2
+- Obsolete retired python3-ufolib package
+
 * Tue Jun 16 2020 Parag Nemade <pnemade AT redhat DOT com> - 4.12.1-1
 - Update to 4.12.1 version (#1847541)
 
