@@ -7,7 +7,7 @@ OpenType, AFM and to an extent Type 1 and some Mac-specific formats.
 
 Name:           fonttools
 Version:        4.13.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools to manipulate font files
 License:        MIT
 URL:            https://github.com/fonttools/fonttools/
@@ -49,6 +49,8 @@ Obsoletes: python3-ufolib <= 2.1.1-11
 %description -n python3-fonttools
 %{desc}
 
+%{?python_extras_subpkg:%python_extras_subpkg -n python3-fonttools -i %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info ufo unicode}
+
 %prep
 %autosetup
 rm -rf *.egg-info
@@ -78,6 +80,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m pytest --ignore Tests/mi
 %{python3_sitelib}/%{name}-%{version}-py3.?.egg-info
 
 %changelog
+* Sat Jul 11 2020 Miro Hrončok <mhroncok@redhat.com> - 4.13.0-2
+- Add fonttools[ufo] and fonttools[unicode] subpackages
+
 * Sat Jul 11 2020 Parag Nemade <pnemade AT redhat DOT com> - 4.13.0-1
 - Update to 4.13.0 version (#1855929)
 
