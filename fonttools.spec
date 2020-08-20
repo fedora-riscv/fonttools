@@ -6,8 +6,8 @@ from an XML text format, which is also called TTX. It supports TrueType, \
 OpenType, AFM and to an extent Type 1 and some Mac-specific formats.
 
 Name:           fonttools
-Version:        4.13.0
-Release:        3%{?dist}
+Version:        4.14.0
+Release:        1%{?dist}
 Summary:        Tools to manipulate font files
 License:        MIT
 URL:            https://github.com/fonttools/fonttools/
@@ -80,6 +80,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m pytest --ignore Tests/mi
 %{python3_sitelib}/%{name}-%{version}-py3.?.egg-info
 
 %changelog
+* Thu Aug 20 2020 Parag Nemade <pnemade AT redhat DOT com> - 4.14.0-1
+- Update to 4.14.0 version (#1870253)
+
 * Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 4.13.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
 
