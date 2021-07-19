@@ -64,7 +64,7 @@ sed -i '1d' Lib/fontTools/mtiLib/__init__.py
 %{__python3} setup.py install --skip-build --root %{buildroot}
 
 %check
-PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m pytest --ignore Tests/misc/plistlib_test.py
+PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m pytest --ignore Tests/otlLib/optimize_test.py
 
 %files
 %{_bindir}/pyftmerge
