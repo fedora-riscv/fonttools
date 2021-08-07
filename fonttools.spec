@@ -7,7 +7,7 @@ OpenType, AFM and to an extent Type 1 and some Mac-specific formats.
 
 Name:           fonttools
 Version:        4.26.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools to manipulate font files
 License:        MIT
 URL:            https://github.com/fonttools/fonttools/
@@ -27,11 +27,6 @@ Summary:        Python 3 fonttools library
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-setuptools_scm
-BuildRequires:  python3-pytest
-BuildRequires:  python3-brotli
-BuildRequires:  python3-munkres
-BuildRequires:  python3-scipy
-BuildRequires:  python3-fs
 
 BuildArch:      noarch
 
@@ -41,6 +36,15 @@ Requires:       python3-lxml
 Requires:       python3-scipy
 Requires:       python3-fs
 
+# Need to run test files in %%check
+BuildRequires:  python3-zopfli
+BuildRequires:  python3-pytest
+BuildRequires:  python3-brotli
+BuildRequires:  python3-munkres
+BuildRequires:  python3-scipy
+BuildRequires:  python3-fs
+
+
 # From 3.31.0 and on, python3-fonttools incorporated the ufolib project under fontTools.ufoLib
 # python-ufolib has been retired and fontTools.ufoLib should be used instead.
 # See https://github.com/fonttools/fonttools/releases/tag/3.31.0 for further reference
@@ -49,7 +53,7 @@ Obsoletes: python3-ufolib <= 2.1.1-11
 %description -n python3-fonttools
 %{desc}
 
-%{?python_extras_subpkg:%python_extras_subpkg -n python3-fonttools -i %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info ufo unicode}
+%{?python_extras_subpkg:%python_extras_subpkg -n python3-fonttools -i %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info ufo unicode woff}
 
 %prep
 %autosetup
@@ -80,6 +84,10 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m pytest --ignore Tests/ot
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Aug 07 2021 Parag Nemade <pnemade AT redhat DOT com> - 4.26.1-2
+- Add woff functionality subpackage
+- Rewrite separate BR's required to run test files
+
 * Wed Aug 04 2021 Parag Nemade <pnemade AT redhat DOT com> - 4.26.1-1
 - Update to 4.26.1 version (#1989769)
 
