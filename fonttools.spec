@@ -7,7 +7,7 @@ OpenType, AFM and to an extent Type 1 and some Mac-specific formats.
 
 Name:           fonttools
 Version:        4.28.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools to manipulate font files
 License:        MIT
 URL:            https://github.com/fonttools/fonttools/
@@ -53,7 +53,9 @@ Obsoletes: python3-ufolib <= 2.1.1-11
 %description -n python3-fonttools
 %{desc}
 
-%{?python_extras_subpkg:%python_extras_subpkg -n python3-fonttools -i %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info ufo unicode woff}
+# Cannot package “pathops” extra until python3dist(skia-pathops) is packaged;
+# cannot package “all” extra without the “pathops” extra
+%{?python_extras_subpkg:%python_extras_subpkg -n python3-fonttools -i %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info graphite interpolatable lxml plot symfont type1 ufo unicode woff}
 
 %prep
 %autosetup
@@ -84,6 +86,10 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m pytest --ignore Tests/ot
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Dec 13 2021 Benjamin A. Beasley <code@musicinmybrain.net> - 4.28.3-2
+- Add missing extras metapackages: graphite, interpolatable, lxml, plot,
+  symfont, type1
+
 * Mon Dec 06 2021 Parag Nemade <pnemade AT redhat DOT com> - 4.28.3-1
 - Update to 4.28.3 version (#2029061)
 
