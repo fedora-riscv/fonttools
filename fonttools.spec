@@ -7,7 +7,7 @@ OpenType, AFM and to an extent Type 1 and some Mac-specific formats.
 
 Name:           fonttools
 Version:        4.33.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools to manipulate font files
 License:        MIT
 URL:            https://github.com/fonttools/fonttools/
@@ -86,6 +86,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m pytest --ignore Tests/ot
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Jun 14 2022 Python Maint <python-maint@redhat.com> - 4.33.3-2
+- Rebuilt for Python 3.11
+
 * Wed Apr 27 2022 Parag Nemade <pnemade AT redhat DOT com> - 4.33.3-1
 - Update to 4.33.3 version (#2079108)
 
