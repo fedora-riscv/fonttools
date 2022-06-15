@@ -13,6 +13,12 @@ License:        MIT
 URL:            https://github.com/fonttools/fonttools/
 Source0:        https://github.com/%{name}/%{name}/archive/%{version}.tar.gz#/%{pypi_name}-%{version}.tar.gz
 
+# Fix Python 3.11 test failures
+# - read LogRecord's msg instead of args on 3.11+
+# - allow new str() form of enums
+# Fixes https://bugzilla.redhat.com/2067200
+Patch:          python3.11.patch
+
 Requires:       python3-fonttools
 Requires:       python3-setuptools
 BuildArch:      noarch
@@ -58,7 +64,7 @@ Obsoletes: python3-ufolib <= 2.1.1-11
 %{?python_extras_subpkg:%python_extras_subpkg -n python3-fonttools -i %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info graphite interpolatable lxml plot symfont type1 ufo unicode woff}
 
 %prep
-%autosetup
+%autosetup -p1
 rm -rf *.egg-info
 
 sed -i '1d' Lib/fontTools/mtiLib/__init__.py
