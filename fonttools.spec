@@ -7,7 +7,7 @@ OpenType, AFM and to an extent Type 1 and some Mac-specific formats.
 
 Name:           fonttools
 Version:        4.34.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tools to manipulate font files
 License:        MIT
 URL:            https://github.com/fonttools/fonttools/
@@ -15,7 +15,6 @@ Source0:        https://github.com/%{name}/%{name}/archive/%{version}.tar.gz#/%{
 
 Requires:       python3-fonttools
 Requires:       python3-setuptools
-BuildArch:      noarch
 Provides:       ttx = %{version}-%{release}
 
 %description
@@ -28,7 +27,8 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-setuptools_scm
 
-BuildArch:      noarch
+BuildRequires:  python3-Cython
+BuildRequires:  gcc
 
 Requires:       python3-brotli
 Requires:       python3-munkres
@@ -60,7 +60,7 @@ Obsoletes: python3-ufolib <= 2.1.1-11
 
 # Cannot package “pathops” extra until python3dist(skia-pathops) is packaged;
 # cannot package “all” extra without the “pathops” extra
-%{?python_extras_subpkg:%python_extras_subpkg -n python3-fonttools -i %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info graphite interpolatable lxml plot symfont type1 ufo unicode woff}
+%{?python_extras_subpkg:%python_extras_subpkg -n python3-fonttools -i %{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info graphite interpolatable lxml plot symfont type1 ufo unicode woff}
 
 %prep
 %autosetup -p1
@@ -69,6 +69,7 @@ rm -rf *.egg-info
 sed -i '1d' Lib/fontTools/mtiLib/__init__.py
 
 %build
+export FONTTOOLS_WITH_CYTHON=1
 %py3_build
 
 %install
@@ -76,7 +77,7 @@ sed -i '1d' Lib/fontTools/mtiLib/__init__.py
 
 %if %{with tests}
 %check
-PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m pytest --ignore Tests/otlLib/optimize_test.py --ignore Tests/varLib/merger_test.py --ignore Tests/varLib/varLib_test.py
+PYTHONPATH=%{buildroot}%{python3_sitearch} %{python3} -m pytest --ignore Tests/otlLib/optimize_test.py --ignore Tests/varLib/merger_test.py --ignore Tests/varLib/varLib_test.py
 %endif
 
 %files
@@ -89,10 +90,13 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m pytest --ignore Tests/ot
 %files -n python3-fonttools
 %license LICENSE
 %doc NEWS.rst README.rst
-%{python3_sitelib}/fontTools
-%{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
+%{python3_sitearch}/fontTools
+%{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 22 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 4.34.4-3
+- Enable Cython acceleration; the package is no longer noarch
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.34.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
