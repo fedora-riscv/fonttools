@@ -9,6 +9,8 @@ Name:           fonttools
 Version:        4.37.1
 Release:        1%{?dist}
 Summary:        Tools to manipulate font files
+
+# https://spdx.org/licenses/MIT.html
 License:        MIT
 URL:            https://github.com/fonttools/fonttools/
 Source0:        https://github.com/%{name}/%{name}/archive/%{version}.tar.gz#/%{pypi_name}-%{version}.tar.gz
