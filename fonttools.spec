@@ -5,6 +5,10 @@ includes the TTX tool, that can convert TrueType and OpenType fonts to and \
 from an XML text format, which is also called TTX. It supports TrueType, \
 OpenType, AFM and to an extent Type 1 and some Mac-specific formats.
 
+# for bootstrap on riscv64
+%bcond_without bootstrap
+%global _without_tests 1
+
 Name:           fonttools
 Version:        4.37.2
 Release:        1%{?dist}
