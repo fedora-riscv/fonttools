@@ -7,7 +7,7 @@ OpenType, AFM and to an extent Type 1 and some Mac-specific formats.
 
 Name:           fonttools
 Version:        4.42.0
-Release:        2%{?dist}
+Release:        2.rv64%{?dist}
 Summary:        Tools to manipulate font files
 
 # https://spdx.org/licenses/MIT.html
@@ -47,7 +47,7 @@ BuildRequires:  python3-scipy
 BuildRequires:  python3-fs
 BuildRequires:  python3-lxml
 %if %{undefined rhel}
-BuildRequires:  python3-ufoLib2
+# BuildRequires:  python3-ufoLib2
 BuildRequires:  python3-zopfli
 %endif
 %endif
